@@ -39,7 +39,7 @@
     </Frames>
     <NormalTexture/>
     <PushedTexture file="Interface\FriendsFrame\UI-FriendsFrame-HighlightBar" alphaMode="ADD"/>
-    <HighlightTexture file="Interface\AddOns\LFG\Icons\UI-FriendsFrame-HighlightBar-Blue" alphaMode="ADD"/>
+    <HighlightTexture file="Interface\AddOns\EasyRecruiting\Icons\UI-FriendsFrame-HighlightBar-Blue" alphaMode="ADD"/>
     <Scripts>
       <OnLoad>
         self:RegisterForClicks("LeftButtonUp","RightButtonUp");
@@ -95,7 +95,7 @@
         </Backdrop>
         <Layers>
           <Layer level="OVERLAY">
-            <FontString name="LFGRolePickerTitle" inherits="GameFontHighlight" text="Users">
+            <FontString name="ERRolePickerTitle" inherits="GameFontHighlight" text="Users">
               <Size>
                 <AbsDimension x="200" y="15"/>
               </Size>

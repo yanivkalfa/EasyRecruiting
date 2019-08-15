@@ -1,1 +1,0 @@
-LFG.Utils.Queue = {};
