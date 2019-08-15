@@ -1,25 +1,27 @@
 EasyRecruiting.Utils.Message = {};
 
 function EasyRecruiting.Utils.Message.officerToUserThroughProxy(msg, to)
-  local jsonMessage = Json.stringify({ msg = msg, to = to }), message;
+  local jsonMessage, message;
+  jsonMessage = Json.stringify({ msg = msg, to = to });
   message =  EasyRecruiting.Constants.MSG_PREFIX..jsonMessage;
   SendChatMessage(message, "WHISPER", "Common", ERSettings.proxy);
 end
 
 function EasyRecruiting.Utils.Message.officerFromUserThroughProxy(message, sender)
-  local parts = EasyRecruiting.Utils.General.explode(EasyRecruiting.Constants.MSG_PREFIX, message); parsedMessage = {};
+  local parts, parsedMessage, newMessage;
+  parts = EasyRecruiting.Utils.General.explode(EasyRecruiting.Constants.MSG_PREFIX, message);
   if( parts[2] ) then
     parsedMessage = Json.parse(parts[2]);
-    if(type(parsedMessage) == "table") then 
-        newMessage = EasyRecruiting.Utils.Message.createMessage(parsedMessage.msg, parsedMessage.sender);
-        if ( ERSettings.selectedThread == parsedMessage.sender ) then
-          newMessage.isRead = true
-        end
-        EasyRecruiting:addMessage(newMessage, parsedMessage.sender);
+    if(type(parsedMessage) == "table") then
+      newMessage = EasyRecruiting.Utils.Message.createMessage(parsedMessage.msg, parsedMessage.sender);
+      if ( ERSettings.selectedThread == parsedMessage.sender ) then
+        newMessage.isRead = true
+      end
+      EasyRecruiting:addMessage(newMessage, parsedMessage.sender);
     else
-			EasyRecruiting.Utils.General.log('Could not parse the incoming message');
-			return false;
-		end
+      EasyRecruiting.Utils.General.log('Could not parse the incoming message');
+      return false;
+    end
   end
 end
 
@@ -30,16 +32,17 @@ end
 
 function EasyRecruiting.Utils.Message.proxyToUserFromOfficer(message)
   DEFAULT_CHAT_FRAME:AddMessage(message);
-	local parts = EasyRecruiting.Utils.General.explode(EasyRecruiting.Constants.MSG_PREFIX, message); parsedMessage = {};
+  local parts = EasyRecruiting.Utils.General.explode(EasyRecruiting.Constants.MSG_PREFIX, message);
+  local parsedMessage = {};
   DEFAULT_CHAT_FRAME:AddMessage("type(parts)"..type(parts));
-	if( parts[2] ) then
+  if( parts[2] ) then
     parsedMessage = Json.parse(parts[2]);
     if(type(parsedMessage) == "table") then
       SendChatMessage(parsedMessage.msg, "WHISPER", "Common", parsedMessage.to);
-		else
-			EasyRecruiting.Utils.General.log('Could not parse the incoming message');
-			return false;
-		end
+    else
+      EasyRecruiting.Utils.General.log('Could not parse the incoming message');
+      return false;
+    end
   end
 end
 
@@ -49,11 +52,11 @@ function EasyRecruiting.Utils.Message.proxyToOfficerFromUser(message, sender)
   nextMessagePart = string.sub(message, 51);
   jsonMessage = Json.stringify(EasyRecruiting.Utils.Message.createMessage(firstMessagePart, sender));
   encodedMessage = EasyRecruiting.Constants.MSG_PREFIX..jsonMessage;
-  
+
   for index, value in pairs(ERSettings.officers) do
     SendChatMessage(encodedMessage, "WHISPER", "Common", value);
   end;
-  
+
   if (string.len(nextMessagePart) > 0 ) then
     EasyRecruiting.Utils.Message.proxyToOfficerFromUser(nextMessagePart, sender);
   end
@@ -65,7 +68,7 @@ function EasyRecruiting.Utils.Message.routeWshipers(self, message, sender, langu
     if( EasyRecruiting.Utils.Table.indexOf(ERSettings.officers, sender) >= 1) then
       EasyRecruiting.Utils.Message.proxyToUserFromOfficer(message);
       DEFAULT_CHAT_FRAME:AddMessage("I am proxy message from officers - proxy to user");
-    else 
+    else
       EasyRecruiting.Utils.Message.proxyToOfficerFromUser(message, sender);
       DEFAULT_CHAT_FRAME:AddMessage("I am proxy message from user - proxy to officers");
     end
@@ -74,7 +77,7 @@ function EasyRecruiting.Utils.Message.routeWshipers(self, message, sender, langu
       DEFAULT_CHAT_FRAME:AddMessage("I am officer message from proxy - display message");
       EasyRecruiting.Utils.Message.officerFromUserThroughProxy(message, sender);
     end
-  end 
+  end
 end
 
 --__ER__{"msg": "aaaaaaaaaaaaa", "to": "Zeemonk-Silvermoon"}

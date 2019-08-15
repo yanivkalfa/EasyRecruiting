@@ -51,7 +51,7 @@ function EasyRecruiting.UserChatFrame.prepareMessage(message)
 end
 
 function EasyRecruiting.UserChatFrame.addNewMessage(message, ...)
-  preparedMessage = EasyRecruiting.UserChatFrame.prepareMessage(message);
+  local preparedMessage = EasyRecruiting.UserChatFrame.prepareMessage(message);
   UserMessages:AddMessage(preparedMessage, ...);
   EasyRecruiting.UserChatFrame.updateScroll();
 end
@@ -62,7 +62,7 @@ function EasyRecruiting.UserChatFrame.clearMessages()
 end
 
 function EasyRecruiting.UserChatFrame.render()
-  local messages = {}, preparedMessage;
+  local messages = {};
   EasyRecruiting.UserChatFrame.clearMessages();
   if ( ERSettings.selectedThread ) then 
     messages = EasyRecruiting.threads.getThreadMessages(ERSettings.selectedThread);

@@ -13,7 +13,7 @@ function EasyRecruiting.UserScrollFrames.onUserClick(self)
 end
 
 function EasyRecruiting.UserScrollFrames.updateListButton(itemName, thread, itemButton)
-  local itemText, parts, name, realm, unreadCount;
+  local itemText, parts, name, realm, unreadCount, itemUnreadCount;
   
   itemText = _G[itemName.."Name"];
   itemUnreadCount = _G[itemName.."UnreadCount"];
