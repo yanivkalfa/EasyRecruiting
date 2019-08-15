@@ -1,0 +1,359 @@
+<Ui xmlns="http://www.blizzard.com/wow/ui/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.blizzard.com/wow/ui/
+	..\FrameXML\UI.xsd">
+
+  <Button name="UserSelectTemplate" virtual="true">
+    <Size x="120" y="25"/>
+    <Layers>
+      <Layer level="ARTWORK">
+        <FontString name="$parentName" inherits="GameFontNormal" justifyH="LEFT" text="whatever">
+          <Size x="120" y="25"/>
+          <Anchors>
+            <Anchor point="LEFT" x="15" />
+          </Anchors>
+        </FontString>
+        <FontString name="$parentUnreadCount" inherits="GameFontHighlight" justifyH="LEFT" text="15">
+          <Size x="20" y="20"/>
+          <Anchors>
+            <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="-20"/>
+          </Anchors>
+        </FontString>
+      </Layer>
+    </Layers>
+    <Frames>
+      <Button name="$parentDeleteThread" toplevel="true" hidden="false">
+        <Size x="25" y="25"/>
+        <HitRectInsets left="9" right="7" top="-7" bottom="10"/>
+        <Anchors>
+          <Anchor point="RIGHT" relativeTo="$parent" relativePoint="RIGHT" x="0" y="-1"/>
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            local parent = self:GetParent();
+            EasyRecruiting:deleteThread(parent.thread.name);
+          </OnClick>
+        </Scripts>
+        <NormalTexture file="Interface\Buttons\CancelButton-Up"/>
+        <PushedTexture file="Interface\Buttons\CancelButton-Down"/>
+        <HighlightTexture file="Interface\Buttons\CancelButton-Highlight" alphaMode="ADD"/>
+      </Button>
+    </Frames>
+    <NormalTexture/>
+    <PushedTexture file="Interface\FriendsFrame\UI-FriendsFrame-HighlightBar" alphaMode="ADD"/>
+    <HighlightTexture file="Interface\AddOns\LFG\Icons\UI-FriendsFrame-HighlightBar-Blue" alphaMode="ADD"/>
+    <Scripts>
+      <OnLoad>
+        self:RegisterForClicks("LeftButtonUp","RightButtonUp");
+      </OnLoad>
+      <OnClick>
+        EasyRecruiting.UserScrollFrames.onUserClick(self);
+      </OnClick>
+    </Scripts>
+  </Button>
+
+  <Frame name="ERMainFrame" enableMouse="true" movable="true" parent="UIParent" hidden="true">
+    <Size x="600" y="290"/>
+    <Anchors>
+      <Anchor point="BOTTOMRIGHT" x="-200" y="150"/>
+    </Anchors>
+    <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background"
+        edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+      <BackgroundInsets left="4" right="4" top="4" bottom="4"/>
+      <TileSize val="16" />
+      <EdgeSize val="16"/>
+    </Backdrop>
+    <Scripts>
+      <OnLoad>
+        self:RegisterForDrag("LeftButton", "RightButton");
+      </OnLoad>
+      <OnDragStart>
+        self:StartMoving();
+      </OnDragStart>
+      <OnDragStop>
+        self:StopMovingOrSizing();
+      </OnDragStop>
+    </Scripts>
+    <Frames>
+      <Frame name="UserSelectTab" enableMouse="true" movable="false">
+        <Size>
+          <AbsDimension x="150" y="290"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPLEFT">
+          </Anchor>
+        </Anchors>
+        <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background"
+                  edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+          <BackgroundInsets>
+            <AbsInset left="150"/>
+          </BackgroundInsets>
+          <TileSize>
+            <AbsValue val="16"/>
+          </TileSize>
+          <EdgeSize>
+            <AbsValue val="16"/>
+          </EdgeSize>
+        </Backdrop>
+        <Layers>
+          <Layer level="OVERLAY">
+            <FontString name="LFGRolePickerTitle" inherits="GameFontHighlight" text="Users">
+              <Size>
+                <AbsDimension x="200" y="15"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOP">
+                  <Offset>
+                    <AbsDimension x="0" y="-10"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Frames>
+          <Button name="UserSlot1" inherits="UserSelectTemplate" id="1" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSelectTab">
+                <Offset>
+                  <AbsDimension x="10" y="-35"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <Button name="UserSlot2" inherits="UserSelectTemplate" id="2" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSlot1" relativePoint="BOTTOMLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <Button name="UserSlot3" inherits="UserSelectTemplate" id="3" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSlot2" relativePoint="BOTTOMLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <Button name="UserSlot4" inherits="UserSelectTemplate" id="4" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSlot3" relativePoint="BOTTOMLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <Button name="UserSlot5" inherits="UserSelectTemplate" id="5" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSlot4" relativePoint="BOTTOMLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <Button name="UserSlot6" inherits="UserSelectTemplate" id="6" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSlot5" relativePoint="BOTTOMLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <Button name="UserSlot7" inherits="UserSelectTemplate" id="7" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSlot6" relativePoint="BOTTOMLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <Button name="UserSlot8" inherits="UserSelectTemplate" id="8" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSlot7" relativePoint="BOTTOMLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <Button name="UserSlot9" inherits="UserSelectTemplate" id="9" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSlot8" relativePoint="BOTTOMLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <Button name="UserSlot10" inherits="UserSelectTemplate" id="10" hidden="true">
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSlot9" relativePoint="BOTTOMLEFT">
+                <Offset>
+                  <AbsDimension x="0" y="1"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+          </Button>
+          <ScrollFrame name="UserSelectTabScrollFrame" inherits="FauxScrollFrameTemplate" hidden="false">
+            <Size>
+              <AbsDimension x="120" y="244"/>
+            </Size>
+            <Anchors>
+              <Anchor point="TOPLEFT" relativeTo="UserSelectTab">
+                <Offset>
+                  <AbsDimension x="0" y="-40"/>
+                </Offset>
+              </Anchor>
+            </Anchors>
+            <Layers>
+              <Layer level="ARTWORK">
+                <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+                  <Size>
+                    <AbsDimension x="31" y="226"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="TOPLEFT" relativePoint="TOPRIGHT">
+                      <Offset>
+                        <AbsDimension x="-2" y="5"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <TexCoords left="0" right="0.484375" top="0" bottom="0.8"/>
+                </Texture>
+                <Texture file="Interface\PaperDollInfoFrame\UI-Character-ScrollBar">
+                  <Size>
+                    <AbsDimension x="31" y="106"/>
+                  </Size>
+                  <Anchors>
+                    <Anchor point="BOTTOMLEFT" relativePoint="BOTTOMRIGHT">
+                      <Offset>
+                        <AbsDimension x="-2" y="-2"/>
+                      </Offset>
+                    </Anchor>
+                  </Anchors>
+                  <TexCoords left="0.515625" right="1.0" top="0" bottom="0.4140625"/>
+                </Texture>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnVerticalScroll>
+                FauxScrollFrame_OnVerticalScroll(self, offset, EasyRecruiting.Constants.USER_ITEM_HEIGHT, EasyRecruiting.UserScrollFrames.updateList);
+              </OnVerticalScroll>
+              <OnShow>
+                EasyRecruiting.UserScrollFrames.updateList()
+              </OnShow>
+            </Scripts>
+          </ScrollFrame>
+        </Frames>
+      </Frame>
+
+      <Frame name="ERTitle" movable="false">
+        <Size>
+          <AbsDimension x="450" y="290"/>
+        </Size>
+        <Anchors>
+          <Anchor point="TOPRIGHT">
+          </Anchor>
+        </Anchors>
+        <Layers>
+          <Layer level="OVERLAY">
+            <FontString name="ERTitleText" inherits="GameFontHighlight" text="Chat Mother fucker">
+              <Size x="200" y="15" />
+              <Anchors>
+                <Anchor point="TOP" x="0" y="-10"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+      </Frame>
+      <ScrollingMessageFrame name="UserMessages" enableMouseWheel="true" toplevel="true" hidden="false">
+        <Size x="400" y="210"/>
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="-30" y="-40"/>
+        </Anchors>
+        <Frames>
+          <Slider name="Scroller" inherits="UIPanelScrollBarTemplate" hidden="false" toplevel="true" obeyStepOnDrag="true" valueStep="1" minValue="0" maxValue="1">
+            <Size x="30" y="195"/>
+            <Anchors>
+              <Anchor point="BOTTOMRIGHT" x="30" y="5"/>
+            </Anchors>
+            <Scripts>
+              <OnValueChanged>
+                local min, max = self:GetMinMaxValues();
+                self:GetParent():SetScrollOffset(max - value);
+              </OnValueChanged>
+            </Scripts>
+          </Slider>
+        </Frames>
+        <Scripts>
+          <OnLoad>
+            EasyRecruiting.UserChatFrame.onLoad(self);
+            EasyRecruiting.UserChatFrame.updateScroll()
+          </OnLoad>
+          <OnHyperlinkClick>
+            EasyRecruiting.UserChatFrame.onHyperlinkShow(self, link, text, button);
+          </OnHyperlinkClick>
+        </Scripts>
+      </ScrollingMessageFrame>
+      
+      <EditBox name="UserMessageEditBox" toplevel="true"  autoFocus="false" letters="200">
+        <Size x="370" y="30"/>
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" x="-85" y="0"/>
+        </Anchors>
+        <TextInsets left="10" right="10" top="5" bottom="5"/>
+        <Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+          <TileSize val="16"/>
+          <EdgeSize val="16"/>
+        </Backdrop>
+        <FontString inherits="ChatFontNormal"/>
+        <Scripts>
+          <OnEnterPressed>
+            EasyRecruiting:sendNewMessage();
+          </OnEnterPressed>
+          <OnEscapePressed>
+            self:ClearFocus();
+          </OnEscapePressed>
+        </Scripts>
+      </EditBox>
+      <Button name="UserMessageEditBoxSend" toplevel="true" inherits="UIPanelButtonTemplate" text="Send">
+        <Size x="86" y="30"/>
+        <Anchors>
+          <Anchor point="BOTTOMRIGHT" x="-2" y="1" />
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            EasyRecruiting:sendNewMessage();
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="CloseEasyRecruiting" toplevel="true" inherits="UIPanelButtonTemplate" text="X">
+        <Size x="30" y="30"/>
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="-2" y="-2" />
+        </Anchors>
+        <Scripts>
+          <OnClick>
+            EasyRecruiting.toggleChat();
+          </OnClick>
+        </Scripts>
+      </Button>
+    </Frames>
+  </Frame>
+</Ui>
+
+<!--
+<OnEscapePressed>
+self:ClearFocus()
+</OnEscapePressed>
+<OnTextChanged>
+BagBuddy_Update()
+</OnTextChanged>
+
+-->

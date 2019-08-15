@@ -1,0 +1,46 @@
+## Interface: 80200
+## Title: EasyRecruiting
+## Notes: Easy recruiting
+## SavedVariables: ERSettings
+## OptionalDeps:
+## Dependencies: LibDBIcon-1.0
+EasyRecruiting.lua
+
+## Configs
+Configs\Constants.lua
+
+## Libs
+Libs\Json\Json.lua
+##  Libs\Router\Router.lua
+## Libs\Timer\Timer.lua
+
+## Utils
+## Utils\EventUtils.lua
+Utils\GeneralUtils.lua
+Utils\MessageUtils.lua
+## Utils\StringUtils.lua
+Utils\TableUtils.lua
+
+## Components
+## Components\LFG_EventDropDown.lua
+Components\ER_UserScrollFrames.lua
+Components\ER_UserChatFrame.lua
+## Components\LFG_EventsSelectMenu.lua
+## Components\LFG_Friend.lua
+Components\LFG_Minimap_Icon.lua
+Components\ER_Threads.lua
+## Components\LFG_PartyInvitation.lua
+## Components\LFG_QueueDropDown.lua
+## Components\LFG_QueueScrollFrames.lua
+## Components\LFG_RolePicker.lua
+## Components\LFG_Tabs.lua
+## Components\LFG_Whisper.lua
+
+## Actions
+## Actions\EventActions.lua
+## Actions\PartyActions.lua
+## Actions\QueueActions.lua
+
+## LFG_Incoming.lua
+## LFG_Outgoing.lua
+EasyRecruiting.xml
