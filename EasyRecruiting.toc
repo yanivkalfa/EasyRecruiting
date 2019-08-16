@@ -11,7 +11,7 @@ Configs\Constants.lua
 
 ## Libs
 Libs\Json\Json.lua
-## Libs\Timer\Timer.lua
+Libs\Timer\Timer.lua
 
 ## Utils
 Utils\GeneralUtils.lua

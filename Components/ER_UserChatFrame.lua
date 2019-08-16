@@ -10,7 +10,7 @@ function EasyRecruiting.UserChatFrame.onLoad(self)
   self:SetHyperlinksEnabled(true);
   self:SetFading(false);
   self:SetMaxLines(300);
-  
+
   self:SetScript("OnMouseWheel", function(self, delta)
     local cur_val = self.ScrollBar:GetValue()
     local min_val, max_val = Scroller:GetMinMaxValues();
@@ -26,33 +26,38 @@ function EasyRecruiting.UserChatFrame.onLoad(self)
 end
 
 function EasyRecruiting.UserChatFrame.updateScroll()
-	local numMessages = UserMessages:GetNumMessages();
-	local isShown = numMessages > 1;
-	UserMessages.ScrollBar:SetShown(isShown);
-	if isShown then
-		UserMessages.ScrollBar:SetMinMaxValues(1, numMessages);
-		UserMessages.ScrollBar:SetValue(numMessages);
-	end
+  local numMessages = UserMessages:GetNumMessages();
+  local isShown = numMessages > 1;
+  UserMessages.ScrollBar:SetShown(isShown);
+  if isShown then
+    UserMessages.ScrollBar:SetMinMaxValues(1, numMessages);
+    UserMessages.ScrollBar:SetValue(numMessages);
+  end
 end
 
 function EasyRecruiting.UserChatFrame.onHyperlinkShow(self, link, text, button)
-	SetItemRef(link, text, button, self);
+  SetItemRef(link, text, button, self);
 end
 
-function EasyRecruiting.UserChatFrame.prepareMessage(message)
-  local playerName, realm = EasyRecruiting.Utils.General.getFullPlayerName();
-  local prefix = "Received: ";
-  
-  if ( playerName == message.sender ) then
-    prefix = "Sent:";
+function EasyRecruiting.UserChatFrame.prepareMessage(message, thread)
+  local playerName, prefix, color, justName, playerLink;
+  playerName = EasyRecruiting.Utils.General.getFullPlayerName();
+  color = EasyRecruiting.Constants.CLASS_COLORS[thread.cId];
+  justName = unpack(EasyRecruiting.Utils.General.explode("-", thread.name));
+  playerLink = "|c" .. color.colorStr .. GetPlayerLink(thread.name, justName) .. "|r";
+  prefix = "[" .. playerLink .. "] whispers: ";
+
+  if (playerName == message.sender) then
+    prefix = "To [" .. playerLink .. "]: ";
   end
-  
-  return prefix..": "..message.msg;
+
+  return prefix .. ": " .. message.msg;
 end
 
-function EasyRecruiting.UserChatFrame.addNewMessage(message, ...)
-  local preparedMessage = EasyRecruiting.UserChatFrame.prepareMessage(message);
-  UserMessages:AddMessage(preparedMessage, ...);
+function EasyRecruiting.UserChatFrame.addNewMessage(message, thread)
+  local color = EasyRecruiting.Constants.WHISPER_COLOR;
+  local preparedMessage = EasyRecruiting.UserChatFrame.prepareMessage(message, thread);
+  UserMessages:AddMessage(preparedMessage, color.r, color.g, color.b);
   EasyRecruiting.UserChatFrame.updateScroll();
 end
 
@@ -62,16 +67,20 @@ function EasyRecruiting.UserChatFrame.clearMessages()
 end
 
 function EasyRecruiting.UserChatFrame.render()
-  local messages = {};
+  local thread, messages;
+  messages = {}
   EasyRecruiting.UserChatFrame.clearMessages();
-  if ( ERSettings.selectedThread ) then 
-    messages = EasyRecruiting.threads.getThreadMessages(ERSettings.selectedThread);
+  if (ERSettings.selectedThread) then
+    thread = EasyRecruiting.threads.getThread(ERSettings.selectedThread);
+    if( thread ) then
+      messages = thread.messages;
+    end
   end
-  
-  if ( messages ) then 
+
+  if (messages) then
     for index, message in pairs(messages) do
       message.isRead = true;
-      EasyRecruiting.UserChatFrame.addNewMessage(message);
+      EasyRecruiting.UserChatFrame.addNewMessage(message, thread);
     end;
   end
 end

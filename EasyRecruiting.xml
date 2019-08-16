@@ -8,7 +8,7 @@
         <FontString name="$parentName" inherits="GameFontNormal" justifyH="LEFT" text="whatever">
           <Size x="120" y="25"/>
           <Anchors>
-            <Anchor point="LEFT" x="15" />
+            <Anchor point="LEFT" x="15"/>
           </Anchors>
         </FontString>
         <FontString name="$parentUnreadCount" inherits="GameFontHighlight" justifyH="LEFT" text="15">
@@ -28,13 +28,13 @@
         </Anchors>
         <Scripts>
           <OnClick>
-            local parent = self:GetParent();
-            EasyRecruiting:deleteThread(parent.thread.name);
+              local parent = self:GetParent();
+              EasyRecruiting:deleteThread(parent.thread.name);
           </OnClick>
         </Scripts>
-        <NormalTexture file="Interface\Buttons\CancelButton-Up"/>
-        <PushedTexture file="Interface\Buttons\CancelButton-Down"/>
-        <HighlightTexture file="Interface\Buttons\CancelButton-Highlight" alphaMode="ADD"/>
+        <NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up.PNG"/>
+        <PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down.PNG"/>
+        <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight.PNG" alphaMode="ADD"/>
       </Button>
     </Frames>
     <NormalTexture/>
@@ -42,10 +42,10 @@
     <HighlightTexture file="Interface\AddOns\EasyRecruiting\Icons\UI-FriendsFrame-HighlightBar-Blue" alphaMode="ADD"/>
     <Scripts>
       <OnLoad>
-        self:RegisterForClicks("LeftButtonUp","RightButtonUp");
+          self:RegisterForClicks("LeftButtonUp", "RightButtonUp");
       </OnLoad>
       <OnClick>
-        EasyRecruiting.UserScrollFrames.onUserClick(self);
+          EasyRecruiting.UserScrollFrames.onUserClick(self);
       </OnClick>
     </Scripts>
   </Button>
@@ -56,20 +56,20 @@
       <Anchor point="BOTTOMRIGHT" x="-200" y="150"/>
     </Anchors>
     <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background"
-        edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+              edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
       <BackgroundInsets left="4" right="4" top="4" bottom="4"/>
-      <TileSize val="16" />
+      <TileSize val="16"/>
       <EdgeSize val="16"/>
     </Backdrop>
     <Scripts>
       <OnLoad>
-        self:RegisterForDrag("LeftButton", "RightButton");
+          self:RegisterForDrag("LeftButton", "RightButton");
       </OnLoad>
       <OnDragStart>
-        self:StartMoving();
+          self:StartMoving();
       </OnDragStart>
       <OnDragStop>
-        self:StopMovingOrSizing();
+          self:StopMovingOrSizing();
       </OnDragStop>
     </Scripts>
     <Frames>
@@ -243,10 +243,11 @@
             </Layers>
             <Scripts>
               <OnVerticalScroll>
-                FauxScrollFrame_OnVerticalScroll(self, offset, EasyRecruiting.Constants.USER_ITEM_HEIGHT, EasyRecruiting.UserScrollFrames.updateList);
+                FauxScrollFrame_OnVerticalScroll(self, offset, EasyRecruiting.Constants.USER_ITEM_HEIGHT,
+                EasyRecruiting.UserScrollFrames.updateList);
               </OnVerticalScroll>
               <OnShow>
-                EasyRecruiting.UserScrollFrames.updateList()
+                  EasyRecruiting.UserScrollFrames.updateList()
               </OnShow>
             </Scripts>
           </ScrollFrame>
@@ -264,7 +265,7 @@
         <Layers>
           <Layer level="OVERLAY">
             <FontString name="ERTitleText" inherits="GameFontHighlight" text="Chat Mother fucker">
-              <Size x="200" y="15" />
+              <Size x="200" y="15"/>
               <Anchors>
                 <Anchor point="TOP" x="0" y="-10"/>
               </Anchors>
@@ -278,7 +279,8 @@
           <Anchor point="TOPRIGHT" x="-30" y="-40"/>
         </Anchors>
         <Frames>
-          <Slider name="Scroller" inherits="UIPanelScrollBarTemplate" hidden="false" toplevel="true" obeyStepOnDrag="true" valueStep="1" minValue="0" maxValue="1">
+          <Slider name="Scroller" inherits="UIPanelScrollBarTemplate" hidden="false" toplevel="true"
+                  obeyStepOnDrag="true" valueStep="1" minValue="0" maxValue="1">
             <Size x="30" y="195"/>
             <Anchors>
               <Anchor point="BOTTOMRIGHT" x="30" y="5"/>
@@ -293,16 +295,16 @@
         </Frames>
         <Scripts>
           <OnLoad>
-            EasyRecruiting.UserChatFrame.onLoad(self);
-            EasyRecruiting.UserChatFrame.updateScroll()
+              EasyRecruiting.UserChatFrame.onLoad(self);
+              EasyRecruiting.UserChatFrame.updateScroll()
           </OnLoad>
           <OnHyperlinkClick>
             EasyRecruiting.UserChatFrame.onHyperlinkShow(self, link, text, button);
           </OnHyperlinkClick>
         </Scripts>
       </ScrollingMessageFrame>
-      
-      <EditBox name="UserMessageEditBox" toplevel="true"  autoFocus="false" letters="200">
+
+      <EditBox name="UserMessageEditBox" toplevel="true" autoFocus="false" letters="200">
         <Size x="370" y="30"/>
         <Anchors>
           <Anchor point="BOTTOMRIGHT" x="-85" y="0"/>
@@ -325,35 +327,347 @@
       <Button name="UserMessageEditBoxSend" toplevel="true" inherits="UIPanelButtonTemplate" text="Send">
         <Size x="86" y="30"/>
         <Anchors>
-          <Anchor point="BOTTOMRIGHT" x="-2" y="1" />
+          <Anchor point="BOTTOMRIGHT" x="-2" y="1"/>
         </Anchors>
         <Scripts>
           <OnClick>
-            EasyRecruiting:sendNewMessage();
+              EasyRecruiting:sendNewMessage();
           </OnClick>
         </Scripts>
       </Button>
-      <Button name="CloseEasyRecruiting" toplevel="true" inherits="UIPanelButtonTemplate" text="X">
+      <Button name="CloseEasyRecruiting" toplevel="true">
         <Size x="30" y="30"/>
         <Anchors>
-          <Anchor point="TOPRIGHT" x="-2" y="-2" />
+          <Anchor point="TOPRIGHT" x="-2" y="-2"/>
         </Anchors>
+        <NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up.PNG"/>
+        <PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down.PNG"/>
+        <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight.PNG" alphaMode="ADD"/>
         <Scripts>
           <OnClick>
-            EasyRecruiting.toggleChat();
+              EasyRecruiting.toggleChat();
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Frame name="EasyRecruitingOptions" enableMouse="true" hidden="true">
+        <Size x="400" y="220"/>
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="0" y="220"/>
+        </Anchors>
+        <Backdrop bgFile="Interface\DialogFrame\UI-DialogBox-Background"
+                  edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+          <BackgroundInsets left="4" right="4" top="4" bottom="4"/>
+          <TileSize val="16"/>
+          <EdgeSize val="16"/>
+        </Backdrop>
+        <Layers>
+          <Layer level="OVERLAY">
+            <FontString inherits="GameFontHighlight" text="Options">
+              <Size>
+                <AbsDimension x="200" y="15"/>
+              </Size>
+              <Anchors>
+                <Anchor point="TOP">
+                  <Offset>
+                    <AbsDimension x="0" y="-10"/>
+                  </Offset>
+                </Anchor>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <Frames>
+          <Button name="CloseEasyRecruitingOptions" toplevel="true">
+            <Size x="30" y="30"/>
+            <Anchors>
+              <Anchor point="TOPRIGHT" x="-2" y="-2"/>
+            </Anchors>
+            <NormalTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Up.PNG"/>
+            <PushedTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Down.PNG"/>
+            <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight.PNG" alphaMode="ADD"/>
+            <Scripts>
+              <OnClick>
+                  EasyRecruiting:toggleOptions();
+              </OnClick>
+            </Scripts>
+          </Button>
+          <EditBox name="easyRecruitingProxyTextBox" toplevel="true" autoFocus="false" letters="200">
+            <Size x="310" y="30"/>
+            <Anchors>
+              <Anchor point="TOPRIGHT" x="-15" y="-45"/>
+            </Anchors>
+            <TextInsets left="10" right="10" top="5" bottom="5"/>
+            <Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+              <TileSize val="16"/>
+              <EdgeSize val="16"/>
+            </Backdrop>
+            <FontString inherits="ChatFontNormal"/>
+            <Layers>
+              <Layer level="ARTWORK">
+                <FontString name="title" inherits="GameFontNormal" justifyH="LEFT" text="Proxy: ">
+                  <Anchors>
+                    <Anchor point="LEFT" x="-55"/>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnTextChanged>
+                ERSettings.proxy = self:GetText();
+              </OnTextChanged>
+              <OnEscapePressed>
+                self:ClearFocus();
+              </OnEscapePressed>
+            </Scripts>
+          </EditBox>
+          <EditBox name="easyRecruitingSpam1TextBox" toplevel="true" autoFocus="false" letters="200">
+            <Size x="310" y="30"/>
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeTo="easyRecruitingProxyTextBox" y="-35"/>
+            </Anchors>
+            <TextInsets left="10" right="10" top="5" bottom="5"/>
+            <Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+              <TileSize val="16"/>
+              <EdgeSize val="16"/>
+            </Backdrop>
+            <FontString inherits="ChatFontNormal"/>
+            <Layers>
+              <Layer level="ARTWORK">
+                <FontString name="title" inherits="GameFontNormal" justifyH="LEFT" text="Spam #1">
+                  <Anchors>
+                    <Anchor point="LEFT" x="-55"/>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnTextChanged>
+                ERSettings.spamMsg1 = self:GetText();
+              </OnTextChanged>
+              <OnEscapePressed>
+                self:ClearFocus();
+              </OnEscapePressed>
+            </Scripts>
+          </EditBox>
+          <EditBox name="easyRecruitingSpam2TextBox" toplevel="true" autoFocus="false" letters="200">
+            <Size x="310" y="30"/>
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeTo="easyRecruitingSpam1TextBox" y="-35"/>
+            </Anchors>
+            <TextInsets left="10" right="10" top="5" bottom="5"/>
+            <Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+              <TileSize val="16"/>
+              <EdgeSize val="16"/>
+            </Backdrop>
+            <FontString inherits="ChatFontNormal"/>
+            <Layers>
+              <Layer level="ARTWORK">
+                <FontString name="title" inherits="GameFontNormal" justifyH="LEFT" text="Spam #2">
+                  <Anchors>
+                    <Anchor point="LEFT" x="-55"/>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnTextChanged>
+                ERSettings.spamMsg2 = self:GetText();
+              </OnTextChanged>
+              <OnEscapePressed>
+                self:ClearFocus();
+              </OnEscapePressed>
+            </Scripts>
+          </EditBox>
+          <EditBox name="easyRecruitingSpam3TextBox" toplevel="true" autoFocus="false" letters="200">
+            <Size x="310" y="30"/>
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeTo="easyRecruitingSpam2TextBox" y="-35"/>
+            </Anchors>
+            <TextInsets left="10" right="10" top="5" bottom="5"/>
+            <Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+              <TileSize val="16"/>
+              <EdgeSize val="16"/>
+            </Backdrop>
+            <FontString inherits="ChatFontNormal"/>
+            <Layers>
+              <Layer level="ARTWORK">
+                <FontString name="title" inherits="GameFontNormal" justifyH="LEFT" text="Spam #3">
+                  <Anchors>
+                    <Anchor point="LEFT" x="-55"/>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnTextChanged>
+                ERSettings.spamMsg3 = self:GetText();
+              </OnTextChanged>
+              <OnEscapePressed>
+                self:ClearFocus();
+              </OnEscapePressed>
+            </Scripts>
+          </EditBox>
+          <EditBox name="easyRecruitingSpamTimeoutTextBox" toplevel="true" autoFocus="false" letters="200">
+            <Size x="40" y="30"/>
+            <Anchors>
+              <Anchor point="TOPRIGHT" relativeTo="easyRecruitingSpam3TextBox" x="-225" y="-33"/>
+            </Anchors>
+            <TextInsets left="10" right="10" top="5" bottom="5"/>
+            <Backdrop edgeFile="Interface\DialogFrame\UI-DialogBox-Border" tile="true">
+              <TileSize val="16"/>
+              <EdgeSize val="16"/>
+            </Backdrop>
+            <FontString inherits="ChatFontNormal"/>
+            <Layers>
+              <Layer level="ARTWORK">
+                <FontString name="title" inherits="GameFontNormal" justifyH="LEFT" text="Spam Timeout: ">
+                  <Anchors>
+                    <Anchor point="LEFT" x="-100"/>
+                  </Anchors>
+                </FontString>
+              </Layer>
+            </Layers>
+            <Scripts>
+              <OnTextChanged>
+                local spamTimeout = tonumber(self:GetText());
+                if(type(spamTimeout) == "number") then
+                  ERSettings.spamTimeout = spamTimeout;
+                end
+              </OnTextChanged>
+              <OnEscapePressed>
+                self:ClearFocus();
+              </OnEscapePressed>
+            </Scripts>
+          </EditBox>
+          <Button name="EasyRecruitingOptionsUpdate" toplevel="true" inherits="UIPanelButtonTemplate" text="Update">
+            <Size x="86" y="30"/>
+            <Anchors>
+              <Anchor point="BOTTOMRIGHT" x="-5" y="5"/>
+            </Anchors>
+            <Scripts>
+              <OnClick>
+                  EasyRecruiting:updateVisability("spamMsg1", easyRecruitingSpam1);
+                  EasyRecruiting:updateVisability("spamMsg2", easyRecruitingSpam2);
+                  EasyRecruiting:updateVisability("spamMsg3", easyRecruitingSpam3);
+              </OnClick>
+            </Scripts>
+          </Button>
+        </Frames>
+      </Frame>
+      <Button name="EasyRecruitingOptionsToggler" toplevel="true">
+        <Size x="18" y="18"/>
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="-32" y="-8"/>
+        </Anchors>
+        <NormalTexture file="Interface\Buttons\UI-OptionsButton.PNG"/>
+        <HighlightTexture file="Interface\Buttons\UI-Panel-MinimizeButton-Highlight.PNG" alphaMode="ADD"/>
+        <Scripts>
+          <OnClick>
+              EasyRecruiting:toggleOptions();
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="easyRecruitingSpam1" toplevel="true" hidden="true">
+        <Size x="30" y="30"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" x="175" y="-2"/>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <FontString name="title" inherits="GameFontNormal" justifyH="LEFT" text="#1">
+              <Anchors>
+                <Anchor point="LEFT" x="-15"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <NormalTexture file="Interface\Buttons\UI-Panel-BiggerButton-Up.PNG"/>
+        <PushedTexture file="Interface\Buttons\UI-Panel-BiggerButton-Down.PNG"/>
+        <DisabledTexture file="Interface\Buttons\UI-Panel-SmallerButton-Disabled.PNG"/>
+        <Scripts>
+          <OnLoad>
+              EasyRecruiting:updateVisability("spamMsg1", self);
+          </OnLoad>
+          <OnClick>
+              EasyRecruiting:sendSpam("spamMsg1", 1);
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="easyRecruitingSpam2" toplevel="true" hidden="true">
+        <Size x="30" y="30"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="easyRecruitingSpam1" x="50"/>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <FontString name="title" inherits="GameFontNormal" justifyH="LEFT" text="#2">
+              <Anchors>
+                <Anchor point="LEFT" x="-15"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <NormalTexture file="Interface\Buttons\UI-Panel-BiggerButton-Up.PNG"/>
+        <PushedTexture file="Interface\Buttons\UI-Panel-BiggerButton-Down.PNG"/>
+        <DisabledTexture file="Interface\Buttons\UI-Panel-SmallerButton-Disabled.PNG"/>
+        <Scripts>
+          <OnLoad>
+              EasyRecruiting:updateVisability("spamMsg2", self);
+          </OnLoad>
+          <OnClick>
+              EasyRecruiting:sendSpam("spamMsg2", 2);
+          </OnClick>
+        </Scripts>
+      </Button>
+      <Button name="easyRecruitingSpam3" toplevel="true" hidden="true">
+        <Size x="30" y="30"/>
+        <Anchors>
+          <Anchor point="TOPLEFT" relativeTo="easyRecruitingSpam2" x="50"/>
+        </Anchors>
+        <Layers>
+          <Layer level="ARTWORK">
+            <FontString name="title" inherits="GameFontNormal" justifyH="LEFT" text="#3">
+              <Anchors>
+                <Anchor point="LEFT" x="-15"/>
+              </Anchors>
+            </FontString>
+          </Layer>
+        </Layers>
+        <NormalTexture file="Interface\Buttons\UI-Panel-BiggerButton-Up.PNG"/>
+        <PushedTexture file="Interface\Buttons\UI-Panel-BiggerButton-Down.PNG"/>
+        <DisabledTexture file="Interface\Buttons\UI-Panel-SmallerButton-Disabled.PNG"/>
+        <Scripts>
+          <OnLoad>
+              EasyRecruiting:updateVisability("spamMsg3", self);
+          </OnLoad>
+          <OnClick>
+              EasyRecruiting:sendSpam("spamMsg3", 3);
           </OnClick>
         </Scripts>
       </Button>
     </Frames>
+    <Scripts>
+      <OnShow>
+          easyRecruitingProxyTextBox:SetText(ERSettings.proxy);
+          if (string.len(ERSettings.spamMsg1) > 0) then
+            easyRecruitingSpam1TextBox:SetText(ERSettings.spamMsg1);
+          end
+          EasyRecruiting:updateVisability("spamMsg1", easyRecruitingSpam1);
+
+          if (string.len(ERSettings.spamMsg2) > 0) then
+            easyRecruitingSpam2TextBox:SetText(ERSettings.spamMsg2);
+          end
+          EasyRecruiting:updateVisability("spamMsg2", easyRecruitingSpam2);
+
+          if (string.len(ERSettings.spamMsg3) > 0) then
+            easyRecruitingSpam3TextBox:SetText(ERSettings.spamMsg3);
+          end
+          EasyRecruiting:updateVisability("spamMsg3", easyRecruitingSpam3);
+
+          if (string.len(ERSettings.spamTimeout) > 0) then
+            easyRecruitingSpamTimeoutTextBox:SetText(ERSettings.spamTimeout);
+          end
+      </OnShow>
+    </Scripts>
   </Frame>
 </Ui>
-
-<!--
-<OnEscapePressed>
-self:ClearFocus()
-</OnEscapePressed>
-<OnTextChanged>
-BagBuddy_Update()
-</OnTextChanged>
-
--->
