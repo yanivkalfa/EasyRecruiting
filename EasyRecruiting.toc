@@ -2,16 +2,21 @@
 ## Title: EasyRecruiting
 ## Notes: Easy recruiting
 ## SavedVariables: ERSettings
-## OptionalDeps:
-## Dependencies: LibDBIcon-1.0
+## OptionalDependencies: LibStub, CallbackHandler-1.0, LibSharedMedia-3.0, LibDBIcon-1.0
+
+## Libs
+Libs\LibStub\LibStub.lua
+Libs\CallbackHandler-1.0\CallbackHandler-1.0.xml
+Libs\LibDataBroker-1.1\LibDataBroker-1.1.lua
+Libs\LibDBIcon-1.0\lib.xml
+Libs\Json\Json.lua
+Libs\Timer\Timer.lua
+## Libs
+
 EasyRecruiting.lua
 
 ## Configs
 Configs\Constants.lua
-
-## Libs
-Libs\Json\Json.lua
-Libs\Timer\Timer.lua
 
 ## Utils
 Utils\GeneralUtils.lua
