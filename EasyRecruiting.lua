@@ -80,6 +80,7 @@ function EasyRecruiting:spamSent()
   if ( EasyRecruiting.spamTimeout ) then
     Timer.clearTimer(EasyRecruiting.spamTimeout);
   end
+  EasyRecruiting:setSpamBottonsState("DISABLED");
   EasyRecruiting.spamTimeout = Timer.setTimeout(
     ERSettings.spamTimeout,
     function() EasyRecruiting:setSpamBottonsState("NORMAL"); end
@@ -126,18 +127,18 @@ function EasyRecruiting:init()
   if (not self.initiated) then
     local easyRecruitingLDB, icon;
     self.Utils.General.hidePrefixedMessages();
-    if LibStub("LibDataBroker-1.1", true) then
+    --if LibStub("LibDataBroker-1.1", true) then
       easyRecruitingLDB = LibStub("LibDataBroker-1.1"):NewDataObject(EasyRecruiting.addonName, {
         type = "data source",
         icon = "Interface\\AddOns\\EasyRecruiting\\Icons\\BattlenetWorking0",
         OnClick = EasyRecruiting.toggleChat,
       });
-    end
+    --end
 
-    if LibStub("LibDBIcon-1.0", true) then
+    --if LibStub("LibDBIcon-1.0", true) then
       icon = LibStub("LibDBIcon-1.0");
       icon:Register(EasyRecruiting.addonName, easyRecruitingLDB, ERSettings.minimap);
-    end
+    --end
     EasyRecruiting:renderChat();
     EasyRecruiting.initiated = true;
   end
