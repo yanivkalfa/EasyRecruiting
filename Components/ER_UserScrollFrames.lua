@@ -12,14 +12,13 @@ function EasyRecruiting.UserScrollFrames.onUserClick(self)
   EasyRecruiting:renderChat();
 end
 
-function EasyRecruiting.UserScrollFrames.updateListButton(itemName, thread, itemButton)
-  local itemText, parts, name, realm, unreadCount, itemUnreadCount;
+function EasyRecruiting.UserScrollFrames.updateListButton(itemName, thread, itemButton, unreadCount)
+  local itemText, parts, name, realm, itemUnreadCount;
 
   itemText = _G[itemName .. "Name"];
   itemUnreadCount = _G[itemName .. "UnreadCount"];
   name, realm = unpack(EasyRecruiting.Utils.General.explode("-", thread.name));
   itemText:SetText(name);
-  unreadCount = EasyRecruiting.threads.getUnreadCount(thread);
 
   if (unreadCount > 0) then
     itemUnreadCount:SetText(unreadCount);
@@ -37,7 +36,8 @@ function EasyRecruiting.UserScrollFrames.updateListButton(itemName, thread, item
 end
 
 function EasyRecruiting.UserScrollFrames.updateList()
-  local line, index, itemButton, itemName, totalResults;
+  local thread, line, index, itemButton, itemName, totalResults, unreadCount, threadWithUnreadCount;
+  threadWithUnreadCount = 0;
   totalResults = table.getn(ERSettings.threads);
 
   FauxScrollFrame_Update(UserSelectTabScrollFrame, totalResults, EasyRecruiting.Constants.MAX_PAGE_SIZE, EasyRecruiting.Constants.USER_ITEM_HEIGHT);
@@ -53,12 +53,25 @@ function EasyRecruiting.UserScrollFrames.updateList()
     end
 
     if (index <= totalResults) then
+      thread = ERSettings.threads[index];
       itemButton:Show();
-      itemButton.thread = ERSettings.threads[index];
-      EasyRecruiting.UserScrollFrames.updateListButton(itemName, ERSettings.threads[index], itemButton);
+      itemButton.thread = thread;
+      unreadCount = EasyRecruiting.threads.getUnreadCount(thread);
+      if ( unreadCount > 0) then
+        threadWithUnreadCount = threadWithUnreadCount + 1;
+      end
+      EasyRecruiting.UserScrollFrames.updateListButton(itemName, thread, itemButton, unreadCount);
     else
       itemButton.thread = {};
       itemButton:Hide();
     end
+  end
+
+  if ( threadWithUnreadCount > 0 ) then
+    EasyRecruiting.minimapButton:SetButtonState("PUSHED", true);
+    EasyRecruiting.minimapButton.FontString:SetText(threadWithUnreadCount);
+  else
+    EasyRecruiting.minimapButton:SetButtonState("NORMAL");
+    EasyRecruiting.minimapButton.FontString:SetText("");
   end
 end

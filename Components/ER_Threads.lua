@@ -66,4 +66,3 @@ function EasyRecruiting.threads.getUnreadCount(thread)
 
   return unreadCount;
 end
-

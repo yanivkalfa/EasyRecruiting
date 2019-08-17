@@ -7,6 +7,7 @@ EasyRecruiting.threads = {};
 EasyRecruiting.initiated = nil;
 EasyRecruiting.Utils = {};
 EasyRecruiting.spamTimeout = nil;
+EasyRecruiting.minimapButton = nil;
 
 ERSettings = ERSettings or {
   minimap = {
@@ -127,18 +128,23 @@ function EasyRecruiting:init()
   if (not self.initiated) then
     local easyRecruitingLDB, icon;
     self.Utils.General.hidePrefixedMessages();
-    --if LibStub("LibDataBroker-1.1", true) then
-      easyRecruitingLDB = LibStub("LibDataBroker-1.1"):NewDataObject(EasyRecruiting.addonName, {
-        type = "data source",
-        icon = "Interface\\AddOns\\EasyRecruiting\\Icons\\BattlenetWorking0",
-        OnClick = EasyRecruiting.toggleChat,
-      });
-    --end
 
-    --if LibStub("LibDBIcon-1.0", true) then
-      icon = LibStub("LibDBIcon-1.0");
-      icon:Register(EasyRecruiting.addonName, easyRecruitingLDB, ERSettings.minimap);
-    --end
+    easyRecruitingLDB = LibStub("LibDataBroker-1.1"):NewDataObject(EasyRecruiting.addonName, {
+      type = "data source",
+      icon = "Interface\\AddOns\\EasyRecruiting\\Icons\\BattlenetWorking",
+      OnClick = EasyRecruiting.toggleChat,
+    });
+
+    icon = LibStub("LibDBIcon-1.0");
+    icon:Register(EasyRecruiting.addonName, easyRecruitingLDB, ERSettings.minimap);
+    EasyRecruiting.minimapButton = icon:GetMinimapButton(EasyRecruiting.addonName);
+    EasyRecruiting.minimapButton:SetPushedTexture("Interface\\AddOns\\EasyRecruiting\\Icons\\BattlenetWorkingPushed");
+    EasyRecruiting.minimapButton.FontString = EasyRecruiting.minimapButton:CreateFontString("MinimapButtonText", "OVERLAY", "GameFontNormal");
+    EasyRecruiting.minimapButton.FontString:SetSize(30, 40);
+    EasyRecruiting.minimapButton.FontString:SetPoint("TOPLEFT", 10, 5);
+    EasyRecruiting.minimapButton.FontString:SetTextColor(1,1,1);
+    EasyRecruiting.minimapButton.FontString:SetFont("Fonts\\FRIZQT__.ttf",15);
+    EasyRecruiting.minimapButton.FontString:SetJustifyH("LEFT");
     EasyRecruiting:renderChat();
     EasyRecruiting.initiated = true;
   end
@@ -161,3 +167,8 @@ end
 
 EasyRecruiting:RegisterSlashCommands();
 EasyRecruiting:bindEvents();
+
+--if LibStub("LibDataBroker-1.1", true) then
+--end
+--if LibStub("LibDBIcon-1.0", true) then
+--end
