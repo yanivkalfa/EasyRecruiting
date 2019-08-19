@@ -19,6 +19,10 @@ function EasyRecruiting.Utils.Message.createChatMessage(msg, sender, isRead)
   return { msg = msg, sender = sender, isRead = isRead };
 end
 
+function EasyRecruiting.Utils.Message.createNotifyMessage(event)
+  return { type = "notify", event = event };
+end
+
 function EasyRecruiting.Utils.Message.createSpamMessage(msg, num)
   return { type = "spam", msg = msg, num = num };
 end
@@ -33,6 +37,12 @@ end
 
 function EasyRecruiting.Utils.Message.sendToProxy(encodedMessage)
   SendChatMessage(encodedMessage, "WHISPER", "Common", ERSettings.proxy);
+end
+
+function EasyRecruiting.Utils.Message.prepareAndSendNotifyToProxy(event)
+  local message = EasyRecruiting.Utils.Message.createNotifyMessage(event);
+  local stringifiedMessage = EasyRecruiting.Utils.Message.stringifyMessage(message);
+  EasyRecruiting.Utils.Message.sendToProxy(stringifiedMessage);
 end
 
 function EasyRecruiting.Utils.Message.prepareAndsendToUserThroughProxy(msg, to)
@@ -60,6 +70,11 @@ function EasyRecruiting.Utils.Message.routeWshipers(self, message, sender, langu
     local parsedMessage = EasyRecruiting.Utils.Message.parseMessage(message);
 
     if (parsedMessage) then
+      if (parsedMessage.type == "notify") then
+        EasyRecruiting:setIsAfk(parsedMessage.args);
+        return true;
+      end
+
       if (parsedMessage.type == "action") then
         -- do action
 

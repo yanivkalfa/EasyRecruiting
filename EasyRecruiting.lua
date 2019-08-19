@@ -8,6 +8,8 @@ EasyRecruiting.initiated = nil;
 EasyRecruiting.Utils = {};
 EasyRecruiting.spamTimeout = nil;
 EasyRecruiting.minimapButton = nil;
+EasyRecruiting.onUpdateInterval = 0.3;
+EasyRecruiting.timeSinceLastUpdate = 0;
 
 ERSettings = ERSettings or {
   minimap = {
@@ -39,9 +41,9 @@ end
 function EasyRecruiting:sendNewMessage()
   local threadName, message, playerName, text;
   text = UserMessageEditBox:GetText();
-  if (string.len(text) > 0) then
+  threadName = ERSettings.selectedThread;
+  if ( string.len(text) > 0 and string.len(threadName) > 0 ) then
     playerName = EasyRecruiting.Utils.General.getFullPlayerName();
-    threadName = ERSettings.selectedThread;
     message = EasyRecruiting.Utils.Message.createChatMessage(text, playerName, true);
     EasyRecruiting:addMessage(message, threadName);
     UserMessageEditBox:SetText("");
@@ -110,6 +112,10 @@ function EasyRecruiting:toggleChat()
   else
     ERMainFrame:Show();
   end
+end
+
+function EasyRecruiting:setIsAfk(status)
+  EasyRecruitingWakeProxy.isAfk = status;
 end
 
 function EasyRecruiting:OnEvent(event, ...)

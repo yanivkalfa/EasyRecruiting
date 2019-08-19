@@ -567,6 +567,35 @@
           </OnClick>
         </Scripts>
       </Button>
+      <Button name="EasyRecruitingWakeProxy" toplevel="true">
+        <Size x="18" y="18"/>
+        <Anchors>
+          <Anchor point="TOPRIGHT" x="-62" y="-8"/>
+        </Anchors>
+        <NormalTexture file="Interface\Buttons\UI-GuildButton-MOTD-Up.PNG"/>
+        <DisabledTexture file="Interface\Buttons\UI-GuildButton-MOTD-Disabled.PNG"/>
+        <Scripts>
+          <OnLoad>
+              self.isAfk = false;
+              self:Disable();
+          </OnLoad>
+          <OnUpdate>
+              EasyRecruiting.timeSinceLastUpdate = EasyRecruiting.timeSinceLastUpdate + elapsed;
+              if EasyRecruiting.timeSinceLastUpdate >= EasyRecruiting.onUpdateInterval then
+                EasyRecruiting.timeSinceLastUpdate = 0;
+                if ( self.isAfk ) then
+                  if ( self:GetButtonState() == "DISABLED" ) then
+                    self:SetButtonState("NORMAL");
+                  else
+                    self:SetButtonState("DISABLED");
+                  end
+                else
+                  self:SetButtonState("DISABLED");
+                end
+              end
+          </OnUpdate>
+        </Scripts>
+      </Button>
       <Button name="easyRecruitingSpam1" toplevel="true" hidden="true">
         <Size x="30" y="30"/>
         <Anchors>

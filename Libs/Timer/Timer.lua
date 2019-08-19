@@ -50,6 +50,8 @@ local function startLoop()
   end
   f:SetScript("OnUpdate", onUpdate);
   Timer.loopStarted = true;
+  Timer.onUpdateInterval = 0.1;
+  Timer.timeSinceLastUpdate = 0;
 end
 
 local function endLoop()
